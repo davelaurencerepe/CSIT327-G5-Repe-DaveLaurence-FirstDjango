@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="fw-bold mb-4" style="color: var(--cc-dark);">Admin Panel</h2>
+
+<div class="card p-4">
+  <h5 class="fw-bold mb-3">All members ({{ members|length }})</h5>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead>
+        <tr><th>Username</th><th>Name</th><th>Email</th><th>Course</th><th>Role</th></tr>
+      </thead>
+      <tbody>
+        {% for m in members %}
+        <tr>
+          <td>{{ m.username }}</td>
+          <td>{{ m.get_full_name|default:"-" }}</td>
+          <td>{{ m.email|default:"-" }}</td>
+          <td>{{ m.course|default:"-" }}</td>
+          <td>
+            <span class="badge {% if m.role == 'ADMIN' %}bg-success{% else %}bg-secondary{% endif %}">
+              {{ m.get_role_display }}
+            </span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
